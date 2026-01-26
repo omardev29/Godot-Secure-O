@@ -181,14 +181,14 @@ MODIFICATIONS = [
                     "ctx.set_encode_key(key.ptrw(), 256);",
                     "",
                     "if (use_magic) {",
-                    "file->store_32(ENCRYPTED_HEADER_MAGIC);",
+                    "    file->store_32(ENCRYPTED_HEADER_MAGIC);",
                     "}",
                     "",
                     "file->store_buffer(hash, 16);",
                     "file->store_64(data.size());",
                     "file->store_buffer(iv.ptr(), 16);",
                     "",
-                    "ctx.encrypt_cfb(len, iv.ptrw(), compressed.ptrw(), compressed.ptrw());"
+                    "ctx.encrypt_cfb(len, iv.ptrw(), compressed.ptr(), compressed.ptr());"
                 ],
                 "replace": [
                     "CryptoCore::AESContext ctx;",
