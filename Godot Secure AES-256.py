@@ -211,7 +211,7 @@ MODIFICATIONS = [
                     "file->store_64(data.size());",
                     "file->store_buffer(iv.ptr(), 16);",
                     "",
-                    "ctx.encrypt_cfb(len, iv.ptrw(), compressed.ptrw(), compressed.ptrw());"
+                    "ctx.encrypt_cfb(len, iv.ptrw(), compressed.ptr(), compressed.ptr());"
                 ]
             }
         ]
