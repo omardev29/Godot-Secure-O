@@ -55,16 +55,22 @@ def version_tuple(version_str) -> tuple:
         return (4, 6)
 
 def should_apply_operation(op, major_version, minor_version) -> bool:
-    # Determine if an operation should be applied based on min/max versions
+    # Filters operations based on version constraints
+    # Examples:
+    #   version_min: 4.6,  applies to 4.6 and newer
+    #   version_max: 4.5, applies to 4.5 and older
+    #   Both: 4.3 + 4.5, applies only to 4.3-4.5 range
+    #   Nothing: applies to everything
+    
     current_version = (major_version, minor_version)
     
-    # Check version_min
+    # Reject if current version is below minimum required
     if "version_min" in op:
         min_version = version_tuple(op["version_min"])
         if current_version < min_version:
             return False
     
-    # Check version_max
+    # Reject if current version is above maximum supported
     if "version_max" in op:
         max_version = version_tuple(op["version_max"])
         if current_version > max_version:
@@ -203,7 +209,7 @@ MODIFICATIONS = [
             {
                 "type": "replace_block",
                 "description": "Add token obfuscation for encryption",
-                "version_min": "4.6",
+                "version_min": "4.6", # applies to 4.6 and everything above
                 "find": [
                     "CryptoCore::AESContext ctx;",
                     "ctx.set_encode_key(key.ptrw(), 256);",
@@ -245,7 +251,7 @@ MODIFICATIONS = [
             {
                 "type": "replace_block",
                 "description": "Add token obfuscation for encryption",
-                "version_max": "4.5", 
+                "version_max": "4.5", # applies to 4.5 and everything below
                 "find": [
                     "CryptoCore::AESContext ctx;",
                     "ctx.set_encode_key(key.ptrw(), 256);",
