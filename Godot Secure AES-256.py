@@ -308,11 +308,11 @@ def apply_modifications(root_dir):
                 major_version = int(match_major.group(1))
                 print_info(f"Godot version detected: {major_version}.{minor_version}")
             else:
-                print_warning(f"Could not read version.py, assuming Godot {major_version}.{minor_version}+")
+                print_error(f"Could not read version.py, assuming Godot {major_version}.{minor_version}+")
         except Exception as e:
-            print_warning(f"Error reading version.py: {e}, assuming Godot {major_version}.{minor_version}+")
+            print_error(f"Error reading version.py: {e}, assuming Godot {major_version}.{minor_version}+")
     else:
-        print_warning(f"version.py not found, assuming Godot {major_version}.{minor_version}+")
+        print_error(f"version.py not found, assuming Godot {major_version}.{minor_version}+")
 
     step = 0
     for mod in MODIFICATIONS:
